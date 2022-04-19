@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/c830af475b.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Check out</title>
+  </head>
+  <body>
+    <form class="container" action="#" method="get" novalidate>
+      <fieldset class="account">
+        <legend class="label">Account</legend>
+        <div class="name icon-input">
+          <i class="fa-solid fa-user"></i
+          ><input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Full Name"
+            required
+          />
+        </div>
+        <div class="email icon-input">
+          <i class="fa-solid fa-envelope"></i
+          ><input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div class="pwd icon-input">
+          <i class="fa-solid fa-key"></i
+          ><input
+            type="password"
+            id="pwd"
+            name="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+      </fieldset>
+      <div class="dob-gender">
+        <div class="dob">
+          <label for="dob" class="label">Date of Birth</label>
+          <div class="dob-inputs">
+            <input
+              class="date"
+              type="text"
+              pattern="[0-9]*"
+              size="2"
+              maxlength="2"
+              placeholder="MM"
+              id="month"
+              min="1"
+              max="12"
+              name="DOBmonth"
+              required
+            />
+            <input
+              class="date"
+              type="text"
+              pattern="[0-9]*"
+              size="2"
+              maxlength="2"
+              placeholder="DD"
+              id="day"
+              name="DOBday"
+              required
+            />
+            <input
+              class="date"
+              type="text"
+              pattern="[0-9]*"
+              size="4"
+              maxlength="4"
+              placeholder="YYYY"
+              id="year"
+              name="DOByear"
+              required
+            />
+          </div>
+        </div>
+        <div class="gender-btns">
+          <label for="gender" class="label">Gender</label>
+          <div class="genders">
+            <label for="male" class="gender male">Male</label>
+            <input type="radio" id="male" name="gender" value="male" />
+            <label for="female" class="gender female">Female</label>
+            <input type="radio" id="female" name="gender" value="female" />
+          </div>
+        </div>
+      </div>
+      <fieldset class="payment-details">
+        <legend class="label">Payment Details</legend>
+        <div class="card-btns">
+          <label for="visa" class="visa">
+            <i class="fa-brands fa-cc-visa"></i>Credit Card
+            <input
+              type="radio"
+              name="payment-type"
+              id="visa"
+              value="visa"
+              required
+            />
+          </label>
+          <label for="paypal" class="paypal">
+            <i class="fa-brands fa-cc-paypal"></i>Paypal
+            <input
+              type="radio"
+              name="payment-type"
+              id="paypal"
+              value="paypal"
+              required
+            />
+          </label>
+        </div>
+        <div class="card-num icon-input">
+          <i class="fa-solid fa-credit-card"></i>
+          <input
+            type="text"
+            name="ccnum"
+            placeholder="Card Number"
+            id="ccnum"
+            required
+          />
+        </div>
+        <div class="cvc-exp">
+          <div class="card-cvc icon-input">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              pattern="[0-9]*"
+              placeholder="CVC"
+              id="cvc"
+              name="cvc"
+              required
+            />
+          </div>
+          <div class="card-exp">
+            <input type="month" id="exp" required />
+          </div>
+        </div>
+      </fieldset>
+      <div class="terms">
+        <label for="accept-terms" class="label" id="accept-terms"
+          >Terms and conditions</label
+        >
+        <div class="check-terms">
+          <input type="checkbox" id="accept-terms-input" name="accept" />
+          <p>
+            I accept the terms and conditions for signing up to this service,
+            and herby confirm I have read the privacy policy.
+          </p>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>

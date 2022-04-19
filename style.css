@@ -1,0 +1,270 @@
+:root {
+  --btn-padding: 15px;
+  --label-color: orange;
+  --input-border: solid 1px lightgrey;
+  --border-rad: 3px;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100vh;
+  background-color: #e3e3e3;
+}
+fieldset {
+  border: none;
+}
+.container {
+  width: 40%;
+  margin: auto;
+  margin-top: 20vh;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: var(--input-border);
+  border-radius: 7px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.label {
+  color: var(--label-color);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+/* error messages */
+
+/* icons */
+i:not(.fa-cc-paypal):not(.fa-cc-visa) {
+  font-size: 1rem;
+  width: 40px;
+  padding: 10px;
+  text-align: center;
+  border: var(--input-border);
+  color: lightslategray;
+  border: none;
+}
+
+.fa-cc-paypal,
+.fa-cc-visa {
+  margin-right: 5px;
+}
+
+input:not(.date):not([type="month"]) {
+  border: none;
+  border-left: var(--input-border);
+}
+.fa-credit-card {
+  width: 37px;
+}
+.icon-input {
+  border: var(--input-border);
+  border-radius: var(--border-rad);
+}
+
+/* inputs */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: solid 1px orange;
+  color: green;
+}
+
+/* buttons */
+
+input[type="radio"] {
+  display: none;
+}
+.card-btns > * {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border: var(--input-border);
+  color: lightslategray;
+}
+.male {
+  border-radius: 3px 0 0 3px;
+}
+.female {
+  border-radius: 0 3px 3px 0;
+}
+.visa {
+  border-radius: 3px 0 0 3px;
+}
+.paypal {
+  border-radius: 0 3px 3px 0;
+}
+.active {
+  background-color: var(--label-color) !important;
+  color: white !important;
+  border: solid rgba(0, 0, 0, 0.246) 1px !important;
+}
+.err {
+  border: 1.5px solid rgb(255, 0, 0) !important;
+  border-radius: 0 var(--border-rad) var(--border-rad) 0;
+}
+.not-checked::after {
+  content: "*";
+  color: red;
+  font-size: 1.2rem;
+  padding-left: 2px;
+}
+/* account */
+.account {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.account > * {
+  display: flex;
+}
+
+.account input {
+  width: 100%;
+  padding-left: 5px;
+}
+
+/* dob & gender */
+
+.dob-gender {
+  display: flex;
+  gap: 1rem;
+  max-width: 700px;
+}
+.dob-gender > * {
+  flex: 1;
+}
+.dob-gender label {
+  display: block;
+}
+.date {
+  border: solid 1px lightgray;
+  border-radius: var(--border-rad);
+}
+
+.dob-inputs {
+  display: flex;
+  gap: 0.3rem;
+  height: 60%;
+}
+.dob-inputs > * {
+  flex: 1;
+  padding-left: var(--btn-padding);
+}
+
+.genders {
+  display: flex;
+  width: max-content;
+  border-radius: var(--border-rad);
+}
+.genders > * {
+  width: 100px;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border: var(--input-border);
+  color: lightslategray;
+}
+.gender {
+  background-color: white;
+}
+/* payment details */
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.card-btns {
+  display: flex;
+  border-radius: var(--border-rad);
+}
+
+.cvc-exp {
+  display: flex;
+  gap: 1rem;
+}
+.cvc-exp > * {
+  flex: 1;
+}
+.card-num,
+.card-cvc,
+.card-exp {
+  display: flex;
+  border: var(--input-border);
+}
+
+input[type="month"] {
+  outline: none;
+  border: none;
+  padding-right: 10px;
+  color: black;
+}
+
+.card-num > input,
+.card-cvc > input,
+.card-exp > input {
+  width: 100%;
+  padding-left: 5px;
+}
+
+/* terms */
+.check-terms {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: rgb(139, 139, 139);
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.check-terms input {
+  transform: scale(1.5);
+}
+
+/* submit button */
+
+.submit-btn {
+  width: 50%;
+  margin: auto;
+  background-color: var(--label-color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.4rem;
+  padding: 4px;
+}
+.submit-btn:hover {
+  background-color: rgba(255, 166, 0, 0.799);
+}
+
+@media (max-width: 1240px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (max-width: 625px) {
+  .container {
+    margin-top: 3vh;
+    width: 90%;
+    gap: 0.5rem;
+  }
+  .dob-gender {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .date {
+    padding: var(--btn-padding);
+  }
+  .submit-btn {
+    margin-top: 10px;
+  }
+}
