@@ -1,4 +1,63 @@
 const form = document.querySelector(".container");
+const male = document.querySelector(".male");
+const female = document.querySelector(".female");
+const visa = document.querySelector(".visa");
+const paypal = document.querySelector(".paypal");
+
+form.addEventListener("input", (e) => {
+  if (e.target.classList.contains("err")) {
+    e.target.classList.remove("err");
+  }
+  console.log(e.target.name);
+
+  if (e.target.name == "gender") {
+    const genders = document.querySelector(".genders");
+    if (genders.classList.contains("err")) {
+      genders.classList.remove("err");
+    }
+  }
+  if (e.target.name == "payment-type") {
+    const paymentType = document.querySelector(".card-btns");
+    if (paymentType.classList.contains("err")) {
+      paymentType.classList.remove("err");
+    }
+  }
+});
+
+// choose gender and form of payment toggles
+male.addEventListener("click", () => {
+  if (!male.classList.contains("active")) {
+    male.classList.toggle("active");
+    if (female.classList.contains("active")) {
+      female.classList.toggle("active");
+    }
+  }
+});
+female.addEventListener("click", () => {
+  if (!female.classList.contains("active")) {
+    female.classList.toggle("active");
+    if (male.classList.contains("active")) {
+      male.classList.toggle("active");
+    }
+  }
+});
+
+visa.addEventListener("click", () => {
+  if (!visa.classList.contains("active")) {
+    visa.classList.toggle("active");
+    if (paypal.classList.contains("active")) {
+      paypal.classList.toggle("active");
+    }
+  }
+});
+paypal.addEventListener("click", () => {
+  if (!paypal.classList.contains("active")) {
+    paypal.classList.toggle("active");
+    if (visa.classList.contains("active")) {
+      visa.classList.toggle("active");
+    }
+  }
+});
 
 form.addEventListener("submit", validateForm);
 
@@ -21,22 +80,22 @@ function validateForm(event) {
   const ccexp = document.querySelector("#exp");
   const acceptTerms = document.querySelector("#accept-terms-input");
   const acceptTermsLabel = document.querySelector("#accept-terms");
-  let errMsgs = [];
+  let isValid = true;
 
   if (name.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "Name field cannot be empty";
+    isValid = false;
     name.classList = "err";
   } else {
     name.classList = "";
   }
   if (email.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "Email field cannot be empty";
+    isValid = false;
     email.classList = "err";
   } else {
     email.classList = "";
   }
   if (password.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "Password field cannot be empty";
+    isValid = false;
     password.classList = "err";
   } else {
     password.classList = "";
@@ -51,7 +110,7 @@ function validateForm(event) {
     }
   }
   if (!genderCheck) {
-    errMsgs[errMsgs.length] = "Please select a gender";
+    isValid = false;
   } else {
     genderContainer.classList = "genders label";
   }
@@ -67,7 +126,7 @@ function validateForm(event) {
     }
   }
   if (!dobCheck) {
-    errMsgs[errMsgs.length] = "Date of birth field missing value(s)";
+    isValid = false;
   } else {
     dob.forEach((e) => {
       e.classList = "date";
@@ -83,37 +142,38 @@ function validateForm(event) {
     }
   }
   if (!payTypeCheck) {
-    errMsgs[errMsgs.length] = "Please select a form of payment";
+    isValid = false;
   } else {
     payFormContainer.classList = "card-btns";
   }
 
   if (ccnum.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "Credit card number field cannot be empty";
+    isValid = false;
     ccnum.classList = "err";
   } else {
     ccnum.classList = "";
   }
   if (cvc.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "CVC field cannot be empty";
+    isValid = false;
     cvc.classList = "err";
   } else {
     cvc.classList = "";
   }
   if (ccexp.validity.valueMissing) {
-    errMsgs[errMsgs.length] = "Credit card expiration date cannot be empty";
+    isValid = false;
     ccexp.classList = "err";
   } else {
     ccexp.classList = "";
   }
 
   if (!acceptTerms.checked) {
-    errMsgs[errMsgs.length] =
-      "Terms and conditions must be checked to continue.";
+    isValid = false;
     acceptTermsLabel.classList = "label not-checked";
   } else {
     acceptTermsLabel.classList = "label";
   }
 
-  event.preventDefault();
+  if (!isValid) {
+    event.preventDefault();
+  }
 }
