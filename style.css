@@ -74,7 +74,7 @@ input:not(.date):not([type="month"]) {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  transition: outline 300ms;
+  transition: outline 200ms;
   outline: solid 1px orange;
 }
 
@@ -238,17 +238,21 @@ input[type="month"] {
 /* submit button */
 
 .submit-btn {
-  width: 50%;
+  min-width: 150px;
   margin: auto;
   background-color: var(--label-color);
   border: none;
   border-radius: 10px;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   padding: 4px;
+  cursor: pointer;
+  transition: all 300ms;
 }
 .submit-btn:hover {
   background-color: rgba(255, 166, 0, 0.799);
+  transform: scale(1.05);
 }
 
 @media (max-width: 1240px) {

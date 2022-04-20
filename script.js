@@ -4,11 +4,31 @@ const female = document.querySelector(".female");
 const visa = document.querySelector(".visa");
 const paypal = document.querySelector(".paypal");
 
+function toggleClassForValueMissing(inputElement, className) {
+  if (inputElement.validity.valueMissing) {
+    if (!inputElement.classList.contains(className)) {
+      inputElement.classList.add(className);
+    }
+  } else {
+    if (inputElement.classList.contains(className)) {
+      inputElement.classList.remove(className);
+    }
+  }
+}
+function checkValueMissing(elementArr) {
+  let isValid = true;
+  for (let element of elementArr) {
+    if (element.validity.valueMissing) {
+      isValid = false;
+    }
+  }
+  return isValid;
+}
+
 form.addEventListener("input", (e) => {
   if (e.target.classList.contains("err")) {
     e.target.classList.remove("err");
   }
-  console.log(e.target.name);
 
   if (e.target.name == "gender") {
     const genders = document.querySelector(".genders");
@@ -82,55 +102,46 @@ function validateForm(event) {
   const acceptTermsLabel = document.querySelector("#accept-terms");
   let isValid = true;
 
-  if (name.validity.valueMissing) {
-    isValid = false;
-    name.classList = "err";
-  } else {
-    name.classList = "";
-  }
-  if (email.validity.valueMissing) {
-    isValid = false;
-    email.classList = "err";
-  } else {
-    email.classList = "";
-  }
-  if (password.validity.valueMissing) {
-    isValid = false;
-    password.classList = "err";
-  } else {
-    password.classList = "";
-  }
-  let genderCheck = false;
+  toggleClassForValueMissing(name, "err");
+  toggleClassForValueMissing(email, "err");
+  toggleClassForValueMissing(password, "err");
+  toggleClassForValueMissing(ccnum, "err");
+  toggleClassForValueMissing(cvc, "err");
+  toggleClassForValueMissing(ccexp, "err");
 
-  for (let i in genders) {
-    if (genders[i].checked) {
-      genderCheck = true;
-    } else if (!genders[i].checked) {
-      genderContainer.classList = "genders err";
-    }
-  }
-  if (!genderCheck) {
-    isValid = false;
-  } else {
-    genderContainer.classList = "genders label";
-  }
+  isValid = checkValueMissing([name, email, password, ccnum, cvc, ccexp]);
 
   let dobCheck = true;
-
-  for (let i in dob) {
-    if (dob[i].value == "") {
-      dobCheck = false;
-      dob[i].classList = "date err";
-    } else if (!dob[i].value !== "") {
-      dob[i].classList = "date";
-    }
+  for (let i = 0; i < dob.length; i++) {
+    dobCheck = checkValueMissing([dob[i]]);
+    toggleClassForValueMissing(dob[i], "err");
   }
   if (!dobCheck) {
     isValid = false;
   } else {
     dob.forEach((e) => {
-      e.classList = "date";
+      if (e.classList.contains("err")) {
+        e.classList.remove("err");
+      }
     });
+  }
+
+  let genderCheck = false;
+  for (let i in genders) {
+    if (genders[i].checked) {
+      genderCheck = true;
+    } else if (!genders[i].checked) {
+      if (!genderContainer.classList.contains("err")) {
+        genderContainer.classList.add("err");
+      }
+    }
+  }
+  if (!genderCheck) {
+    isValid = false;
+  } else {
+    if (genderContainer.classList.contains("err")) {
+      genderContainer.classList.remove("err");
+    }
   }
 
   let payTypeCheck = false;
@@ -138,39 +149,28 @@ function validateForm(event) {
     if (formOfPayment[i].checked) {
       payTypeCheck = true;
     } else if (!formOfPayment[i].checked) {
-      payFormContainer.classList = "card-btns err";
+      if (!payFormContainer.classList.contains("err")) {
+        payFormContainer.classList.add("err");
+      }
     }
   }
   if (!payTypeCheck) {
     isValid = false;
   } else {
-    payFormContainer.classList = "card-btns";
-  }
-
-  if (ccnum.validity.valueMissing) {
-    isValid = false;
-    ccnum.classList = "err";
-  } else {
-    ccnum.classList = "";
-  }
-  if (cvc.validity.valueMissing) {
-    isValid = false;
-    cvc.classList = "err";
-  } else {
-    cvc.classList = "";
-  }
-  if (ccexp.validity.valueMissing) {
-    isValid = false;
-    ccexp.classList = "err";
-  } else {
-    ccexp.classList = "";
+    if (payFormContainer.classList.contains("err")) {
+      payFormContainer.classList.remove("err");
+    }
   }
 
   if (!acceptTerms.checked) {
     isValid = false;
-    acceptTermsLabel.classList = "label not-checked";
+    if (!acceptTermsLabel.classList.contains("not-checked")) {
+      acceptTermsLabel.classList.add("not-checked");
+    }
   } else {
-    acceptTermsLabel.classList = "label";
+    if (acceptTermsLabel.classList.contains("not-checked")) {
+      acceptTermsLabel.classList.remove("not-checked");
+    }
   }
 
   if (!isValid) {
