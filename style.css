@@ -74,8 +74,8 @@ input:not(.date):not([type="month"]) {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
+  transition: outline 300ms;
   outline: solid 1px orange;
-  color: green;
 }
 
 /* buttons */
@@ -93,15 +93,20 @@ input[type="radio"] {
 }
 .male {
   border-radius: 3px 0 0 3px;
+  transition: background-color 350ms;
 }
+
 .female {
   border-radius: 0 3px 3px 0;
+  transition: background-color 350ms;
 }
 .visa {
   border-radius: 3px 0 0 3px;
+  transition: background-color 350ms;
 }
 .paypal {
   border-radius: 0 3px 3px 0;
+  transition: background-color 350ms;
 }
 .active {
   background-color: var(--label-color) !important;
