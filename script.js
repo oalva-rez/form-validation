@@ -15,6 +15,7 @@ function toggleClassForValueMissing(inputElement, className) {
     }
   }
 }
+
 function checkValueMissing(elementArr) {
   let isValid = true;
   for (let element of elementArr) {
@@ -25,9 +26,29 @@ function checkValueMissing(elementArr) {
   return isValid;
 }
 
+function displayError(msgs) {
+  const ul = document.createElement("ul");
+  ul.classList.add("error-messages");
+
+  for (let err of msgs) {
+    const li = document.createElement("li");
+    li.textContent = err;
+    ul.appendChild(li);
+  }
+  const ulNode = document.querySelector("ul");
+  const form = document.querySelector("form");
+  if (ulNode == null) {
+    document.body.insertBefore(ul, form);
+  } else {
+    document.body.replaceChild(ul, ulNode);
+  }
+}
+
 form.addEventListener("input", (e) => {
-  if (e.target.classList.contains("err")) {
-    e.target.classList.remove("err");
+  if (e.target.name == "name") {
+    if (e.target.classList.contains("err")) {
+      e.target.classList.remove("err");
+    }
   }
 
   if (e.target.name == "gender") {
@@ -100,6 +121,7 @@ function validateForm(event) {
   const ccexp = document.querySelector("#exp");
   const acceptTerms = document.querySelector("#accept-terms-input");
   const acceptTermsLabel = document.querySelector("#accept-terms");
+  let errMsgs = [];
   let isValid = true;
 
   toggleClassForValueMissing(name, "err");
@@ -108,13 +130,70 @@ function validateForm(event) {
   toggleClassForValueMissing(ccnum, "err");
   toggleClassForValueMissing(cvc, "err");
   toggleClassForValueMissing(ccexp, "err");
-
   isValid = checkValueMissing([name, email, password, ccnum, cvc, ccexp]);
+
+  email.addEventListener("input", (e) => {
+    if (email.name == "email") {
+      const emailParent = email.parentElement;
+
+      if (email.value == "") {
+        emailParent.classList.remove("not-valid");
+        emailParent.classList.remove("valid");
+      }
+
+      if (email.validity.typeMismatch) {
+        if (!email.classList.contains("err")) {
+          email.classList.add("err");
+        }
+        if (
+          !emailParent.classList.contains("not-valid") ||
+          !emailParent.classList.contains("valid")
+        ) {
+          emailParent.classList.remove("not-valid");
+          emailParent.classList.remove("valid");
+          emailParent.classList.add("not-valid");
+        }
+      } else if (
+        emailParent.classList.contains("not-valid") ||
+        emailParent.classList.contains("valid")
+      ) {
+        email.classList.remove("err");
+        emailParent.classList.remove("not-valid");
+        emailParent.classList.remove("valid");
+        emailParent.classList.add("valid");
+      }
+    }
+  });
+
+  if (email.validity.typeMismatch) {
+    isValid = false;
+    if (!email.classList.contains("err")) {
+      email.classList.add("err");
+    }
+    errMsgs[errMsgs.length] = "Email: Must provide valid email formatting.";
+  }
+  if (checkValueMissing([name, email, password, ccnum, cvc, ccexp]) == false) {
+    errMsgs[errMsgs.length] = "Required: Please fill in missing inputs.";
+  }
 
   let dobCheck = true;
   for (let i = 0; i < dob.length; i++) {
     dobCheck = checkValueMissing([dob[i]]);
     toggleClassForValueMissing(dob[i], "err");
+    if (dob[i].validity.patternMismatch) {
+      dobCheck = false;
+      dob[i].classList.add("err");
+
+      if (dob[i].name == "DOBmonth") {
+        errMsgs[errMsgs.length] =
+          "Date of Birth: Month must be a numeric value.";
+      } else if (dob[i].name == "DOBday") {
+        errMsgs[errMsgs.length] = "Date of Birth: Day must be a numeric value.";
+      } else if (dob[i].name == "DOByear") {
+        errMsgs[errMsgs.length] =
+          "Date of Birth: Year must be a numeric value.";
+      }
+    }
   }
   if (!dobCheck) {
     isValid = false;
@@ -175,5 +254,6 @@ function validateForm(event) {
 
   if (!isValid) {
     event.preventDefault();
+    displayError(errMsgs);
   }
 }

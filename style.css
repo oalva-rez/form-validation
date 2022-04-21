@@ -23,7 +23,7 @@ fieldset {
 .container {
   width: 40%;
   margin: auto;
-  margin-top: 20vh;
+  margin-top: 5vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -34,6 +34,41 @@ fieldset {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
+.error-messages {
+  width: 40%;
+  margin: auto;
+  margin-top: 5vh;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 3px solid #eed3d7;
+  border-radius: 7px;
+  background-color: #f2dede;
+  color: #b84a48;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.pwd,
+.email {
+  position: relative;
+}
+
+.not-valid::before {
+  content: "\2716";
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  font-size: 1.2rem;
+  color: red;
+}
+.valid::before {
+  content: "\2714";
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  font-size: 1.2rem;
+  color: rgb(4, 171, 4);
+}
 .label {
   color: var(--label-color);
   font-size: 1rem;
