@@ -107,6 +107,7 @@ input:not(.date):not([type="month"]) {
 
 /* inputs */
 input[type="text"]:focus,
+input[type="number"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
   transition: outline 200ms;
@@ -198,6 +199,7 @@ input[type="radio"] {
 }
 .dob-inputs > * {
   flex: 1;
+  width: 100%;
   padding-left: var(--btn-padding);
 }
 
@@ -291,7 +293,8 @@ input[type="month"] {
 }
 
 @media (max-width: 1240px) {
-  .container {
+  .container,
+  .error-messages {
     width: 80%;
   }
 }
@@ -300,6 +303,9 @@ input[type="month"] {
     margin-top: 3vh;
     width: 90%;
     gap: 0.5rem;
+  }
+  .error-messages {
+    width: 90%;
   }
   .dob-gender {
     flex-direction: column;

@@ -130,7 +130,17 @@ function validateForm(event) {
   toggleClassForValueMissing(ccnum, "err");
   toggleClassForValueMissing(cvc, "err");
   toggleClassForValueMissing(ccexp, "err");
-  isValid = checkValueMissing([name, email, password, ccnum, cvc, ccexp]);
+  isValid = checkValueMissing([
+    name,
+    email,
+    password,
+    dobMonth,
+    dobDay,
+    dobYear,
+    ccnum,
+    cvc,
+    ccexp,
+  ]);
 
   email.addEventListener("input", (e) => {
     if (email.name == "email") {
@@ -172,16 +182,44 @@ function validateForm(event) {
     }
     errMsgs[errMsgs.length] = "Email: Must provide valid email formatting.";
   }
-  if (checkValueMissing([name, email, password, ccnum, cvc, ccexp]) == false) {
+  if (
+    checkValueMissing([
+      name,
+      email,
+      password,
+      dobMonth,
+      dobDay,
+      dobYear,
+      ccnum,
+      cvc,
+      ccexp,
+    ]) == false
+  ) {
     errMsgs[errMsgs.length] = "Required: Please fill in missing inputs.";
   }
 
-  let dobCheck = true;
+  let dobCheck,
+    numCheck,
+    rangeCheck = true;
   for (let i = 0; i < dob.length; i++) {
     dobCheck = checkValueMissing([dob[i]]);
     toggleClassForValueMissing(dob[i], "err");
+    if (dob[i].validity.rangeUnderflow || dob[i].validity.rangeOverflow) {
+      rangeCheck = false;
+      dob[i].classList.add("err");
+      if (dob[i].name == "DOBmonth") {
+        errMsgs[errMsgs.length] =
+          "Date of Birth: Month must be value between 1-12.";
+      } else if (dob[i].name == "DOBday") {
+        errMsgs[errMsgs.length] =
+          "Date of Birth: Month must be value between 1-31.";
+      } else if (dob[i].name == "DOByear") {
+        errMsgs[errMsgs.length] =
+          "Date of Birth: Year must be a valid year range.";
+      }
+    }
     if (dob[i].validity.patternMismatch) {
-      dobCheck = false;
+      numCheck = false;
       dob[i].classList.add("err");
 
       if (dob[i].name == "DOBmonth") {
@@ -195,10 +233,12 @@ function validateForm(event) {
       }
     }
   }
-  if (!dobCheck) {
+  if (!dobCheck || !numCheck || !rangeCheck) {
     isValid = false;
   } else {
     dob.forEach((e) => {
+      console.log(dobCheck);
+
       if (e.classList.contains("err")) {
         e.classList.remove("err");
       }
@@ -243,6 +283,7 @@ function validateForm(event) {
 
   if (!acceptTerms.checked) {
     isValid = false;
+    errMsgs[errMsgs.length] = "Required: Must accept terms and conditions.";
     if (!acceptTermsLabel.classList.contains("not-checked")) {
       acceptTermsLabel.classList.add("not-checked");
     }

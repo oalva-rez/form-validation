@@ -52,7 +52,7 @@
           <div class="dob-inputs">
             <input
               class="date"
-              type="text"
+              type="number"
               pattern="[0-9]*"
               size="2"
               maxlength="2"
@@ -65,10 +65,12 @@
             />
             <input
               class="date"
-              type="text"
+              type="number"
               pattern="[0-9]*"
               size="2"
               maxlength="2"
+              min="1"
+              max="31"
               placeholder="DD"
               id="day"
               name="DOBday"
@@ -76,10 +78,13 @@
             />
             <input
               class="date"
-              type="text"
+              type="number"
               pattern="[0-9]*"
               size="4"
               maxlength="4"
+              minlength="4"
+              min="1900"
+              max="2022"
               placeholder="YYYY"
               id="year"
               name="DOByear"
